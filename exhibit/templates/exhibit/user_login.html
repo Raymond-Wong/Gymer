@@ -1,0 +1,22 @@
+{% extends 'exhibit/widgets/base.html' %}
+
+{% block style %}{% endblock %}
+
+{% block page %}
+<h1>Register</h1>
+<div role="form">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" name="account" placeholder="输入邮箱">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="输入密码">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/exhibit/js/user_login.js"></script>
+{% endblock %}

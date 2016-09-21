@@ -1,8 +1,32 @@
-<ErrorCode>
-  <code>-1</code>
-  <type>global</type>
-  <reason>获取前端参数时发生错误</reason>
-  <code>-2</code>
-  <type>global</type>
-  <reason>对象不存在</reason>
-</ErrorCode>
+<ErrorCodes>
+  <ErrorCode>
+    <code>-1</code>
+    <type>global</type>
+    <reason>获取前端参数时发生错误</reason>
+  </ErrorCode>
+  <ErrorCode>
+    <code>-2</code>
+    <type>global</type>
+    <reason>对象不存在</reason>
+  </Errcode>
+  <ErrorCode>
+    <code>-3</code>
+    <type>global</type>
+    <reason>要求前段进行页面跳转</reason>
+  </Errcode>
+  <ErrorCode module="exhibit.user.register">
+    <code>1</code>
+    <type>local</type>
+    <reason>注册使用的邮箱已存在</reason>
+  </Errcode>
+  <ErrorCode module="exhibit.user.register">
+    <code>2</code>
+    <type>local</type>
+    <reason>注册适用的昵称已存在</reason>
+  </Errcode>
+  <ErrorCode module="exhibit.user.login">
+    <code>3</code>
+    <type>local</type>
+    <reason>登陆密码错误</reason>
+  </Errcode>
+</ErrorCodes>

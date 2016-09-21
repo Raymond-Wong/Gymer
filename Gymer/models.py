@@ -32,8 +32,8 @@ class User(models.Model):
   age = models.PositiveIntegerField(default=18)
   gender = models.PositiveIntegerField(choices=GENDER, default=0)
   exercise_level = models.PositiveIntegerField(choices=EXERCISE_LEVEL, default=0)
-  BMR = models.FloatField()
-  BMI = models.FloatField()
+  BMR = models.FloatField(default=0)
+  BMI = models.FloatField(default=0)
 
 '''
 食物类

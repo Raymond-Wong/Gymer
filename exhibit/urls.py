@@ -6,4 +6,5 @@ import views
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+  url(r'^user$', views.userHandler),
 )

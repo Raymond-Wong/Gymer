@@ -3,10 +3,10 @@ var post = function(url, data, success, failed) {
     if (res['code'] == '0') {
       success(res['msg']);
     } else {
-      if (res['code'] == "-2")  {
+      if (res['code'] == "-3")  {
         window.location.href = res['msg'];
       }
-      if ((failed == undefined || failed == null) && res['code'] != "-2") {
+      if ((failed == undefined || failed == null) && res['code'] != "-3") {
         alert(res['msg']);
       } else {
         failed(res);
