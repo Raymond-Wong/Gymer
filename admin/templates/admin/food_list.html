@@ -1,0 +1,65 @@
+{% extends 'admin/widgets/base.html' %}
+
+{% block style %}
+{% endblock %}
+
+{% block page %}
+<div class="form-horizontal" role="form" action="/admin/food?action=add" method='post'>
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="category" class="col-sm-2 control-label">类别</label>
+    <div class="col-sm-10">
+      <input type="text" class="col-sm-10" name="category" id="category" placeholder="碳水主食">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">名称</label>
+    <div class="col-sm-10">
+      <input type="text" class="col-sm-10" id="name" name="name" placeholder="全麦方包">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="calorie" class="col-sm-2 control-label">卡路里</label>
+    <div class="col-sm-10">
+      <input type="number" class="col-sm-10" id="calorie" name="calorie" placeholder="100">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="GI" class="col-sm-2 control-label">升糖指数GI</label>
+    <div class="col-sm-10">
+      <input type="number" class="col-sm-10" id="GI" name="GI" placeholder="20">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" id="addFoodBtn" class="btn btn-default">添加</button>
+    </div>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>#</th>
+      <th>类别</th>
+      <th>名称</th>
+      <th>卡路里</th>
+      <th>GI值</th>
+      <th>操作</th>
+    </tr>
+    {% for food in foods %}
+    <tr>
+      <td>{{ food.id }}</td>
+      <td>{{ food.category }}</td>
+      <td>{{ food.name }}</td>
+      <td>{{ food.calorie }}</td>
+      <td>{{ food.GI }}</td>
+      <td><button class="btn btn-default btn-xs deleteFoodBtn"><span class="glyphicon glyphicon-remove"></span></button></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/admin/js/food_list.js"></script>
+{% endblock %}

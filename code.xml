@@ -1,0 +1,8 @@
+<ErrorCode>
+  <code>-1</code>
+  <type>global</type>
+  <reason>获取前端参数时发生错误</reason>
+  <code>-2</code>
+  <type>global</type>
+  <reason>对象不存在</reason>
+</ErrorCode>
