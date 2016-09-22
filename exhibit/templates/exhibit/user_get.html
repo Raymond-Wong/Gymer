@@ -1,0 +1,46 @@
+{% extends 'exhibit/widgets/base.html' %}
+
+{% block style %}{% endblock %}
+
+{% block page %}
+<h1>User info</h1>
+<div class="row">
+  <div class="col-xs-4">账号</div>
+  <div class="col-xs-8">{{ user.account }}</div>
+</div>
+<div class="row">
+  <div class="col-xs-4">昵称</div>
+  <div class="col-xs-8">{{ user.nickname }}</div>
+</div>
+<div class="row">
+  <div class="col-xs-4">身高</div>
+  <div class="col-xs-8">{{ user.height }} cm</div>
+</div>
+<div class="row">
+  <div class="col-xs-4">体重</div>
+  <div class="col-xs-8">{{ user.weight }} 斤</div>
+</div>
+<div class="row">
+  <div class="col-xs-4">年龄</div>
+  <div class="col-xs-8">{{ user.age }}</div>
+</div>
+<div class="row">
+  <div class="col-xs-4">性别</div>
+  <div class="col-xs-8">{{ user.gender }}</div>
+</div>
+<div class="row">
+  <div class="col-xs-4">运动类别</div>
+  <div class="col-xs-8">{{ user.exercise_level }}</div>
+</div>
+<div class="row">
+  <div class="col-xs-4">BMI</div>
+  <div class="col-xs-8">{{ user.BMI }}</div>
+</div>
+<div class="row">
+  <div class="col-xs-4">BMR</div>
+  <div class="col-xs-8">{{ user.BMR }}</div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

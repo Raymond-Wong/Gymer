@@ -7,4 +7,6 @@ import views
 
 urlpatterns = patterns('',
   url(r'^user$', views.userHandler),
+  url(r'^food$', views.foodHandler),
+  url(r'^meal$', views.mealHandler),
 )

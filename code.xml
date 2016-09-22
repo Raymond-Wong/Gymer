@@ -29,4 +29,14 @@
     <type>local</type>
     <reason>登陆密码错误</reason>
   </Errcode>
+  <ErrorCode module="exhibit.food.add">
+    <code>1</code>
+    <type>local</type>
+    <reason>食物已存在食材库中</reason>
+  </Errcode>
+  <ErrorCode module="exhibit.food.remove">
+    <code>2</code>
+    <type>local</type>
+    <reason>待删除食物不存在食材库中</reason>
+  </Errcode>
 </ErrorCodes>

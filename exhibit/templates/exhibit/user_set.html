@@ -1,0 +1,66 @@
+{% extends 'exhibit/widgets/base.html' %}
+
+{% block style %}{% endblock %}
+
+{% block page %}
+<h1>User info</h1>
+<div class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="nickname" class="col-sm-2 control-label">昵称</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="nickname" name="nickname" value="{{ user.nickname }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="height" class="col-sm-2 control-label">身高</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="height" name="height" value="{{ user.height }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="weight" class="col-sm-2 control-label">体重</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="weight" name="weight" value="{{ user.weight }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="age" class="col-sm-2 control-label">年龄</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="age" name="age" value="{{ user.age }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="gender" class="col-sm-2 control-label">性别</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="gender" name="gender" value="{{ user.gender }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="exercise_level" class="col-sm-2 control-label">运动级别</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="exercise_level" name="exercise_level" value="{{ user.exercise_level }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="BMI" class="col-sm-2 control-label">BMI</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="BMI" name="BMI" value="{{ user.BMI }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="BMR" class="col-sm-2 control-label">BMR</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control" id="BMR" name="BMR" value="{{ user.BMR }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">保存</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/exhibit/js/user_set.js"></script>
+{% endblock %}

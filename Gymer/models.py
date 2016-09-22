@@ -53,7 +53,7 @@ class Food(models.Model):
   user 所属的用户
 '''
 class Market(models.Model):
-  user = models.ForeignKey(User)
+  user = models.OneToOneField(User)
 
 '''
 餐类

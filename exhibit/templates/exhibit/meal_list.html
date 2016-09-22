@@ -1,0 +1,51 @@
+{% extends 'exhibit/widgets/base.html' %}
+
+{% block style %}
+{% endblock %}
+
+{% block page %}
+<h1 year="{{ year }}" month="{{ month }}" day="{{ day }}">meal list</h1>
+<form role="form">
+  <div class="form-group">
+    <label for="food_types">食物类别</label>
+    <input type="text" class="form-control" id="food_types" name="food_types" placeholder="碳水主食, 动物蛋白">
+  </div>
+  <div class="form-group">
+    <label for="name">餐名</label>
+    <input type="text" class="form-control" id="name" name="name" value="未定义">
+  </div>
+  <a class="btn btn-default randomAddBtn">随机生成一餐</a>
+</form>
+
+{% for meal in meals %}
+<h3>{{ meal.name }}</h3>
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>#</th>
+      <th>类别</th>
+      <th>名称</th>
+      <th>卡路里</th>
+      <th>GI值</th>
+      <th>数量</th>
+      <th>操作</th>
+    </tr>
+    {% for rs in meal.rs_food_amount_set.all %}
+    <tr>
+      <td>{{ rs.food.id }}</td>
+      <td>{{ rs.food.category }}</td>
+      <td>{{ rs.food.name }}</td>
+      <td>{{ rs.food.calorie }}</td>
+      <td>{{ rs.food.GI }}</td>
+      <td>{{ rs.amount }}</td>
+      <td><button class="btn btn-default btn-xs deleteFoodBtn"><span class="glyphicon glyphicon-remove"></span></button></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/exhibit/js/meal_list.js"></script>
+{% endblock %}

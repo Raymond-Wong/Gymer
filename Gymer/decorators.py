@@ -4,6 +4,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 from django.http import HttpResponseServerError
+from django.shortcuts import redirect
 
 def handler(view):
   def unKnownErr(request, *args, **kwargs):
@@ -24,7 +25,7 @@ def logined(view):
     # 如果未登陆且get请求
     if request.method == 'GET':
       request.session['back_url'] = request.get_full_path()
-      return redirect('/user?action=verify&type=phone')
+      return redirect('/user?action=login')
     # 如果未登陆且post请求
     request.session['back_url'] = '/'
     return HttpResponse(Response(c=-3, m='/user?action=login').toJson(), content_type="application/json")
