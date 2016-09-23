@@ -19,3 +19,19 @@ def user_to_foods(user, category=None):
     preferences = user.market.rs_preference_set.filter(food__category=category)
   foods = map(lambda x:x.food, preferences)
   return foods
+
+def meal_to_foods(meal, category=None):
+  if not category:
+    amount = meal.rs_food_amount_set.all()
+  else:
+    amount = meal.rs_food_amount_set.filter(food__category=category)
+  foods = map(lambda x:x.food, amount)
+  return foods
+
+def get_meal_calorie_GI(meal):
+  calorie = 0.0
+  GI = 0.0
+  for fa in meal.rs_food_amount_set.all():
+    calorie += (fa.amount * fa.food.calorie)
+    GI += (fa.amount * fa.food.GI)
+  return calorie, GI

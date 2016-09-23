@@ -40,4 +40,6 @@ def mealHandler(request):
     return handlers.meal.list(request)
   elif action == 'add':
     return handlers.meal.add(request)
+  elif action == 'update':
+    return handlers.meal.update(request)
   return HttpResponseServerError('action type error: %s' % action)

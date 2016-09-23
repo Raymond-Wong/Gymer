@@ -14,34 +14,46 @@
     <label for="name">餐名</label>
     <input type="text" class="form-control" id="name" name="name" value="未定义">
   </div>
+  <div class="form-group">
+    <label for="fids">食材列表</label>
+    <input type="text" class="form-control" id="fids" name="fids">
+  </div>
   <a class="btn btn-default randomAddBtn">随机生成一餐</a>
+  <a class="btn btn-default exactAddBtn">生成一餐</a>
 </form>
 
 {% for meal in meals %}
-<h3>{{ meal.name }}</h3>
-<div class="table-responsive">
-  <table class="table">
-    <tr>
-      <th>#</th>
-      <th>类别</th>
-      <th>名称</th>
-      <th>卡路里</th>
-      <th>GI值</th>
-      <th>数量</th>
-      <th>操作</th>
-    </tr>
-    {% for rs in meal.rs_food_amount_set.all %}
-    <tr>
-      <td>{{ rs.food.id }}</td>
-      <td>{{ rs.food.category }}</td>
-      <td>{{ rs.food.name }}</td>
-      <td>{{ rs.food.calorie }}</td>
-      <td>{{ rs.food.GI }}</td>
-      <td>{{ rs.amount }}</td>
-      <td><button class="btn btn-default btn-xs deleteFoodBtn"><span class="glyphicon glyphicon-remove"></span></button></td>
-    </tr>
-    {% endfor %}
-  </table>
+<div class="panel panel-default" mid="{{ meal.id }}">
+  <div class="panel-heading">name: {{ meal.name }} | calorie: {{ meal.calorie }} | GI: {{ meal.GI }}</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+          <th>#</th>
+          <th>类别</th>
+          <th>名称</th>
+          <th>卡路里</th>
+          <th>GI值</th>
+          <th>数量</th>
+          <th>操作</th>
+        </tr>
+        {% for rs in meal.rs_food_amount_set.all %}
+        <tr>
+          <td>{{ rs.food.id }}</td>
+          <td>{{ rs.food.category }}</td>
+          <td>{{ rs.food.name }}</td>
+          <td>{{ rs.food.calorie }}</td>
+          <td>{{ rs.food.GI }}</td>
+          <td><input style="width: 3em;" type="number" name="amount" value="{{ rs.amount }}" /></td>
+          <td><button class="btn btn-default btn-xs removeFoodBtn"><span class="glyphicon glyphicon-remove"></span></button></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <button class="updateMealBtn btn btn-default">保存</button>
+    <button class="addFoodsBtn btn btn-default">添加食物</button>
+    <input type="text" name="addFoodsId" />
+  </div>
 </div>
 {% endfor %}
 {% endblock %}
