@@ -42,4 +42,6 @@ def mealHandler(request):
     return handlers.meal.add(request)
   elif action == 'update':
     return handlers.meal.update(request)
+  elif action == 'delete':
+    return handlers.meal.delete(request)
   return HttpResponseServerError('action type error: %s' % action)

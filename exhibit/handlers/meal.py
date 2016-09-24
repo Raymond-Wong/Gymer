@@ -108,4 +108,20 @@ def update(request):
   meal.save()
   return HttpResponse(Response(m='更新餐信息成功').toJson(), content_type="application/json")
 
+def delete(request):
+  user = User.objects.get(id=request.session['uid'])
+  args = [('mid', True, long, -1)]
+  args = get_post_args(request.POST, args)
+  if not args[0]:
+    return HttpResponse(Response(m='get args error: %s' % args[1], c='-1').toJson(), content_type='application/json')
+  args = args[1]
+  meal = None
+  try:
+    meal = Meal.objects.get(id=args['mid'])
+  except:
+    return HttpResponse(Response(m='query meal not exist: %s' % args['mid'], c='-2').toJson(), content_type='application/json')
+  if (user != meal.user):
+    return HttpResponse(Response(m='待删除餐不输入当前登陆用户', c='1').toJson(), content_type='application/json')
+  meal.delete()
+  return HttpResponse(Response(m='删除成功').toJson(), content_type='application/json')
 

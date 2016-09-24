@@ -32,6 +32,6 @@ def get_meal_calorie_GI(meal):
   calorie = 0.0
   GI = 0.0
   for fa in meal.rs_food_amount_set.all():
-    calorie += (fa.amount * fa.food.calorie)
-    GI += (fa.amount * fa.food.GI)
+    calorie += (fa.amount * fa.food.calorie / 100.0)
+    GI += (fa.amount * fa.food.GI / 100.0)
   return calorie, GI

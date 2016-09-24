@@ -1,0 +1,71 @@
+.monthContainer {
+  width: 100%;
+  height: 3em;
+  position: relative;
+  background-color: #0cbfa1;
+}
+
+.monthArrowBox {
+  position: absolute;
+  width: 3em;
+  height: 3em;
+  line-height: 3em;
+  top: 0;
+  padding: 0 1em;
+  background-color: #0cbfa1;
+  z-index: 10;
+}
+
+.monthArrowBox span {
+  color: white;
+}
+
+.monthArrowBox[side="left"] {
+  left: 0;
+  text-align: left;
+}
+
+.monthArrowBox[side="right"] {
+  right: 0;
+  text-align: right;
+}
+
+.monthWrapper {
+  width: 100%;
+  padding: 0 3em;
+  height: 3em;
+  line-height: 3em;
+  border: 1px solid #0cbfa1;
+  overflow: hidden;
+}
+
+.monthBoxWrapper {
+  width: 4em;
+  height: 100%;
+  margin: auto;
+}
+
+.monthBox {
+  height: 100%;
+  width: 672px;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 0;
+}
+
+.month {
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  width: 56px;
+  color: #ddd;
+  position: relative;
+  top: -2px;
+}
+
+.month.active {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}

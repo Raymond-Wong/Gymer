@@ -1,10 +1,50 @@
 $(document).ready(function() {
+  initMonthChooser();
   randomAddMealAction();
   exactAddMealAction();
   updateMealAction();
   removeFoodAction();
   addFoodsAction();
+  deleteMealAction();
 });
+
+MONTH_CHOOSER = null;
+var initMonthChooser = function() {
+  var month = $('.metaInfo').attr('month');
+  MONTH_CHOOSER = new IScroll(".monthBoxWrapper", {scrollX: true, scrollY: false, mouseWheel: true, eventPassthrough: true});
+  $('.monthArrowBox').bind('tap', function() {
+    var activeDom = $('.month.active');
+    var offset = $(this).attr('side') == 'left' ? -1 : +1;
+    var activeMonth = parseInt(activeDom.attr('value')) + offset;
+    if (activeMonth <= 12 && activeMonth >= 1) {
+      var toActiveDom = $('.month[value="' + activeMonth + '"]');
+      activeDom.removeClass('active');
+      MONTH_CHOOSER.scrollToElement(toActiveDom[0], 1000);
+      toActiveDom.addClass('active');
+    }
+    return false;
+  });
+  $('.month').bind('tap', function() {
+    var activeDom = $('.month.active');
+    if (activeDom) {
+      activeDom.removeClass('active');
+      $(this).addClass('active');
+      MONTH_CHOOSER.scrollToElement(this, 1000);
+    }
+    return false;
+  });
+  $('.month[value="' + month + '"]').trigger('tap');
+}
+
+var deleteMealAction = function() {
+  $('.deleteMealBtn').bind('tap', function() {
+    var params = {};
+    params['mid'] = $(this).parent().parent().attr('mid');
+    post('/meal?action=delete', params, function(msg) {
+      alert(msg);
+    });
+  });
+}
 
 var exactAddMealAction = function() {
   var year = $('h1').attr('year');

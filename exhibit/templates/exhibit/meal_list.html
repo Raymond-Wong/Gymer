@@ -1,9 +1,35 @@
 {% extends 'exhibit/widgets/base.html' %}
 
 {% block style %}
+<link type="text/css" rel="stylesheet" href="/static/exhibit/css/meal_list.css">
 {% endblock %}
 
 {% block page %}
+<div class="metaInfo" year="{{ year }}" month="{{ month }}" day="{{ day }}"></div>
+<div class="monthContainer">
+  <div class="monthArrowBox" side="left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+  <div class="monthArrowBox" side="right"><span class="glyphicon glyphicon-chevron-right"></span></div>
+  <div class="monthWrapper">
+    <div class="monthBoxWrapper">
+      <div class="monthBox">
+        <div class="month" value="1">Jan</div>
+        <div class="month" value="2">Feb</div>
+        <div class="month" value="3">Mar</div>
+        <div class="month" value="4">Apr</div>
+        <div class="month" value="5">May</div>
+        <div class="month" value="6">Jun</div>
+        <div class="month" value="7">Jul</div>
+        <div class="month" value="8">Aug</div>
+        <div class="month" value="9">Sep</div>
+        <div class="month" value="10">Oct</div>
+        <div class="month" value="11">Nov</div>
+        <div class="month" value="12">Dec</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <h1 year="{{ year }}" month="{{ month }}" day="{{ day }}">meal list</h1>
 <form role="form">
   <div class="form-group">
@@ -24,7 +50,9 @@
 
 {% for meal in meals %}
 <div class="panel panel-default" mid="{{ meal.id }}">
-  <div class="panel-heading">name: {{ meal.name }} | calorie: {{ meal.calorie }} | GI: {{ meal.GI }}</div>
+  <div class="panel-heading">
+    name: {{ meal.name }} | calorie: {{ meal.calorie }} | GI: {{ meal.GI }} | delete: <a class="deleteMealBtn">删除</a>
+  </div>
   <div class="panel-body">
     <div class="table-responsive">
       <table class="table">
@@ -59,5 +87,6 @@
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" src="/static/plugin/iscroll/iscroll.js"></script>
 <script type="text/javascript" src="/static/exhibit/js/meal_list.js"></script>
 {% endblock %}

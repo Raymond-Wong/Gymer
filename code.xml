@@ -39,4 +39,9 @@
     <type>local</type>
     <reason>待删除食物不存在食材库中</reason>
   </Errcode>
+  <ErrorCode module="exhibit.meal.delete">
+    <code>1</code>
+    <type>local</type>
+    <reason>待删除餐不属于当前登陆用户</reason>
+  </Errcode>
 </ErrorCodes>
