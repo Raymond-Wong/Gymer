@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% block page %}
+<div class="chooseFoodWrapper">
+  <div class="chooseFoodBox">
+    <input class="chooseFoodName" placeholder="请输入食物名称" />
+    <div class="chooseFoodResultBox"></div>
+  </div>
+</div>
 <div class="metaInfo" year="{{ year }}" month="{{ month }}" day="{{ day }}"></div>
 <div class="monthContainer">
   <div class="monthArrowBox" side="left"><span class="glyphicon glyphicon-chevron-left"></span></div>
@@ -51,39 +57,45 @@
 </div>
 
 {% for meal in meals %}
-<div class="mealWrapper panel panel-default" mid="{{ meal.id }}">
-  <div class="panel-heading">
-    {{ meal.name }}
-    <a class="deleteMealBtn right "><span class="glyphicon glyphicon-remove"></span></a>
-  </div>
-  <div class="panel-body">
-    <div class="table-responsive">
-      <table class="table">
-        <tr>
-          <th>#</th>
-          <th>类别</th>
-          <th>名称</th>
-          <th>卡路里</th>
-          <th>GI值</th>
-          <th>数量</th>
-          <th>操作</th>
-        </tr>
-        {% for rs in meal.rs_food_amount_set.all %}
-        <tr>
-          <td>{{ rs.food.id }}</td>
-          <td>{{ rs.food.category }}</td>
-          <td>{{ rs.food.name }}</td>
-          <td>{{ rs.food.calorie }}</td>
-          <td>{{ rs.food.GI }}</td>
-          <td><input style="width: 3em;" type="number" name="amount" value="{{ rs.amount }}" /></td>
-          <td><button class="btn btn-default btn-xs removeFoodBtn"><span class="glyphicon glyphicon-remove"></span></button></td>
-        </tr>
-        {% endfor %}
-      </table>
+<div class="mealWrapper" mid="{{ meal.id }}">
+  <div class="mealInfo">
+    <div class="mealName">
+      {{ meal.name }}
     </div>
-    <button class="updateMealBtn btn btn-default">保存</button>
-    <button class="addFoodsBtn btn btn-default">添加食物</button>
-    <input type="text" name="addFoodsId" />
+    <div class="cag">
+      共{{ meal.calorie }}卡，GI值为{{ meal.GI }}
+    </div>
+  </div>
+  <div class="foodList">
+    {% for rs in meal.rs_food_amount_set.all %}
+    <div class="swipeWrapper">
+      <div class="swipeBox">
+        <div class="foodBox left" fid="{{ rs.food.id }}">
+          <div class="thumbImg foodImg"></div>
+          <div class="foodInfo">
+            <div class="foodName">名称：&nbsp;&nbsp;&nbsp;&nbsp;{{ rs.food.name }}</div>
+            <div class="foodCalorie">卡路里：{{ rs.food.calorie }}</div>
+            <div class="foodGI">GI值：&nbsp;&nbsp;&nbsp;&nbsp;{{ rs.food.GI }}</div>
+            <div class="foodAmount">
+              <div class="minusAmountBtn btn left" diff="-5">-</div>
+              <input class="left foodAmountVal" type="number" min="0" value="{{ rs.amount }}" />
+              <div class="addAmountBtn btn right" diff="5">+</div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <a class="deleteFoodWindow left"></a>
+        <div class="clear"></div>
+      </div>
+      <div class="deleteFoodBtn">删除</div>
+    </div>
+    {% endfor %}
+    <div class="btnsBox">
+      <button class="deleteMealBtn btn btn-sm btn-default">删除</button>
+      <button class="addFoodBtn btn btn-sm btn-default">添加</button>
+      <button class="updateMealBtn btn btn-sm btn-default">保存</button>
+      <div class="clear"></div>
+    </div>
   </div>
 </div>
 {% endfor %}

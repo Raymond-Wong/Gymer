@@ -8,7 +8,27 @@ $(document).ready(function() {
   removeFoodAction();
   addFoodsAction();
   deleteMealAction();
+  changeAmountAction();
+  initSwipeDelete();
 });
+
+var initSwipeDelete = function() {
+  $('.swipeWrapper').each(function() {
+    var scroller = new IScroll(this, {snap: true, scrollX: true, scrollY: false, mouseWheel: true, eventPassthrough: true});
+    // var that = $(this);
+    // $(that.find('.foodBox')[0]).on('tap', function() {
+    //   scroller.scrollToElement(this);
+    // });
+  });
+}
+
+var changeAmountAction = function() {
+  $('.minusAmountBtn, .addAmountBtn').on('tap', function() {
+    var target = $($(this).parent().find('.foodAmountVal')[0]);
+    var diff = parseInt($(this).attr('diff'));
+    target.val(parseInt(target.val()) + diff);
+  });
+}
 
 var initChangeDateAction = function() {
   $('.dayBox').on('tap', function() {
@@ -20,7 +40,7 @@ var initChangeDateAction = function() {
   $('.month').on('tap', function() {
     var year = $('.metaInfo').attr('year');
     var month = $(this).attr('value');
-    var day = $('.dayBox.active').attr('value');
+    var day = "1";
     window.location.href = '/meal?action=list&year=' + year + '&month=' + month + '&day=' + day;
   });
 }
@@ -35,25 +55,13 @@ var initMonthChooser = function() {
     var activeMonth = parseInt(activeDom.attr('value')) + offset;
     if (activeMonth <= 12 && activeMonth >= 1) {
       var toActiveDom = $('.month[value="' + activeMonth + '"]');
-      activeDom.removeClass('active');
-      MONTH_CHOOSER.scrollToElement(toActiveDom[0], 1000);
-      toActiveDom.addClass('active');
+      toActiveDom.trigger('tap');
     }
     return false;
   });
   var activeMonthDom = $('.month[value="' + month + '"]');
   activeMonthDom.addClass('active');
   MONTH_CHOOSER.scrollToElement(activeMonthDom[0], 1000);
-  // $('.month').bind('tap', function() {
-  //   var activeDom = $('.month.active');
-  //   if (activeDom) {
-  //     activeDom.removeClass('active');
-  //     $(this).addClass('active');
-  //     MONTH_CHOOSER.scrollToElement(this, 1000);
-  //   }
-  //   return false;
-  // });
-  // $('.month[value="' + month + '"]');.trigger('tap');
 }
 
 DAY_CHOOSER = null;
@@ -75,7 +83,7 @@ var initDayChooser = function() {
   var activeDayDom = $('.dayBox[value="' + day + '"]');
   var scrollDom = $('.dayBox[value="' + (day - 3) + '"]');
   activeDayDom.addClass('active');
-  DAY_CHOOSER = new IScroll('.dayContainer', {scrollX: true, scrollY: false, mouseWheel: true, eventPassthrough: true});
+  DAY_CHOOSER = new IScroll('.dayContainer', {scrollX: true, scrollY: false, mouseWheel: false, eventPassthrough: true});
   if (scrollDom.length > 0) {
     DAY_CHOOSER.scrollToElement(scrollDom[0], 1000);
   } else {
@@ -86,8 +94,10 @@ var initDayChooser = function() {
 var deleteMealAction = function() {
   $('.deleteMealBtn').bind('tap', function() {
     var params = {};
-    params['mid'] = $(this).parent().parent().attr('mid');
+    var mealWrapper = $($(this).parents('.mealWrapper')[0]);
+    params['mid'] = mealWrapper.attr('mid');
     post('/meal?action=delete', params, function(msg) {
+      mealWrapper.remove();
       alert(msg);
     });
   });
@@ -129,21 +139,18 @@ var randomAddMealAction = function() {
 
 var updateMealAction = function() {
   $('.updateMealBtn').on('tap', function() {
-    var table = $($(this).parent().find('table')[0]).children();
-    var trs = table.children('tr');
+    var mealWrapper = $($(this).parents('.mealWrapper')[0])
     var foods = [];
-    for (var i = 0; i < trs.length; i++) {
-      var tr = $(trs[i]);
-      if (tr.children('th').length == 0) {
-        var idBox = $(tr.children('td')[0]);
-        var amountBox = $(tr.find('input[name="amount"]')[0]);
-        foods.push([idBox.text(), amountBox.val()]);
-      }
+    var foodDoms = mealWrapper.find('.foodBox');
+    for (var i = 0; i < foodDoms.length; i++) {
+      var foodDom = $(foodDoms[i]);
+      var fid = foodDom.attr('fid');
+      var amount = $(foodDom.find('.foodAmountVal')[0]).val();
+      foods.push([fid, amount]);
     }
-    var mealId = $($(this).parents('.panel')[0]).attr('mid');
     var params = {};
     params['foods'] = JSON.stringify(foods);
-    params['mid'] = mealId;
+    params['mid'] = mealWrapper.attr('mid');
     post('/meal?action=update', params, function(msg) {
       alert(msg);
     });
@@ -178,9 +185,9 @@ var addFoodsAction = function() {
 }
 
 var removeFoodAction = function() {
-  $('.removeFoodBtn').bind('tap', function() {
-    var tr = $(this).parent().parent();
-    tr.remove();
+  $('.deleteFoodWindow').on('tap', function() {
+    var row = $($(this).parents('.swipeWrapper')[0]);
+    row.remove();
     return false;
   });
 }
