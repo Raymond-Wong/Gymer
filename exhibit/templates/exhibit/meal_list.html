@@ -28,10 +28,12 @@
     </div>
   </div>
 </div>
+<div class="dayContainer">
+  <ul class="dayWrapper">
+  </ul>
+</div>
 
-
-<h1 year="{{ year }}" month="{{ month }}" day="{{ day }}">meal list</h1>
-<form role="form">
+<div class="addMealWrapper" role="form">
   <div class="form-group">
     <label for="food_types">食物类别</label>
     <input type="text" class="form-control" id="food_types" name="food_types" placeholder="碳水主食, 动物蛋白">
@@ -46,12 +48,13 @@
   </div>
   <a class="btn btn-default randomAddBtn">随机生成一餐</a>
   <a class="btn btn-default exactAddBtn">生成一餐</a>
-</form>
+</div>
 
 {% for meal in meals %}
-<div class="panel panel-default" mid="{{ meal.id }}">
+<div class="mealWrapper panel panel-default" mid="{{ meal.id }}">
   <div class="panel-heading">
-    name: {{ meal.name }} | calorie: {{ meal.calorie }} | GI: {{ meal.GI }} | delete: <a class="deleteMealBtn">删除</a>
+    {{ meal.name }}
+    <a class="deleteMealBtn right "><span class="glyphicon glyphicon-remove"></span></a>
   </div>
   <div class="panel-body">
     <div class="table-responsive">

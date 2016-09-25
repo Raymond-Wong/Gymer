@@ -69,6 +69,7 @@ def random_add_meal(request):
     if food_type == '':
       continue
     foods = user_to_foods(user, food_type)
+    print food_type, foods
     if len(foods) > 0:
       food = random.choice(foods)
       food_amount = RS_Food_Amount(food=food, meal=newMeal, amount=0)
