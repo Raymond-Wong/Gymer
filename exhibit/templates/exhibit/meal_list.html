@@ -7,8 +7,16 @@
 {% block page %}
 <div class="chooseFoodWrapper">
   <div class="chooseFoodBox">
-    <input class="chooseFoodName" placeholder="请输入食物名称" />
-    <div class="chooseFoodResultBox"></div>
+    <div class="chooseFoodHeadBox">
+      <div class="chooseFoodHead">
+        <input class="chooseFoodName" placeholder="请输入食物名称" />
+        <div class="chooseFoodCancelBtn">取消</div>
+      </div>
+    </div>
+    <div class="chooseFoodResultWrapper">
+      <div class="chooseFoodHint">请输入食物名称进行查询</div>
+      <div class="chooseFoodResultBox"></div>
+    </div>
   </div>
 </div>
 <div class="metaInfo" year="{{ year }}" month="{{ month }}" day="{{ day }}"></div>
@@ -90,12 +98,13 @@
       <div class="deleteFoodBtn">删除</div>
     </div>
     {% endfor %}
-    <div class="btnsBox">
-      <button class="deleteMealBtn btn btn-sm btn-default">删除</button>
-      <button class="addFoodBtn btn btn-sm btn-default">添加</button>
-      <button class="updateMealBtn btn btn-sm btn-default">保存</button>
-      <div class="clear"></div>
-    </div>
+
+  </div>
+  <div class="btnsBox">
+    <button class="deleteMealBtn btn btn-sm btn-default">删除</button>
+    <button class="addFoodBtn btn btn-sm btn-default">添加</button>
+    <button class="updateMealBtn btn btn-sm btn-default">保存</button>
+    <div class="clear"></div>
   </div>
 </div>
 {% endfor %}

@@ -30,6 +30,8 @@ def foodHandler(request):
     return handlers.food.add(request)
   elif action == 'remove':
     return handlers.food.remove(request)
+  elif action == 'queryByName':
+    return handlers.food.queryByName(request)
   return HttpResponseServerError('action type error: %s' % action)
 
 @handler

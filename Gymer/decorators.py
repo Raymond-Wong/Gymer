@@ -2,6 +2,8 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+import traceback
+
 
 from django.http import HttpResponseServerError
 from django.shortcuts import redirect
@@ -11,8 +13,8 @@ def handler(view):
     try:
       return view(request, *args, **kwargs)
     except Exception, e:
+      traceback.print_exc()
       info = sys.exc_info()
-      print info
       info = str(info[1]).decode("unicode-escape")
       return HttpResponseServerError("Unknown Error Occur: %s" % info)
   return unKnownErr

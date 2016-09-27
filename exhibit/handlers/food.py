@@ -4,6 +4,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 from django.http import HttpResponse, HttpResponseServerError, Http404
 from django.shortcuts import render, redirect
+from django.core import serializers
 
 import Gymer.utils
 from Gymer.utils import Response, get_post_args
@@ -70,3 +71,14 @@ def remove(request):
   for p in preferences:
     p.delete()
   return HttpResponse(Response(m='成功将 %s 从食材库中移除' % food.name).toJson(), content_type='application/json')
+
+def queryByName(request):
+  user = User.objects.get(id=request.session['uid'])
+  args = [('name', True, str, '', 20)]
+  args = get_post_args(request.POST, args)
+  if not args[0]:
+    return HttpResponse(Response(m='get args error: %s' % args[1], c='-1').toJson(), content_type='application/json')
+  args = args[1]
+  foods = user_to_foods(user)
+  foods = filter(lambda x:x.name.startswith(args['name']), foods)
+  return HttpResponse(Response(m=serializers.serialize("json", foods)).toJson(), content_type="application/json")

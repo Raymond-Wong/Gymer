@@ -6,11 +6,80 @@ $(document).ready(function() {
   exactAddMealAction();
   updateMealAction();
   removeFoodAction();
-  addFoodsAction();
   deleteMealAction();
   changeAmountAction();
   initSwipeDelete();
+  queryFoodAction();
+  cancelChooseFoodAction();
+  chooseFoodAction();
 });
+
+var cancelChooseFoodAction = function() {
+  $('.chooseFoodCancelBtn').on('tap', function() {
+    $('.chooseFoodWrapper').fadeOut();
+  });
+}
+
+var chooseFoodAction = function() {
+  $('.addFoodBtn').on('tap', function() {
+    var mealWrapper = $($(this).parents('.mealWrapper')[0]);
+    var chooseFoodWrapper = $('.chooseFoodWrapper');
+    queryFood('');
+    chooseFoodWrapper.attr('mid', mealWrapper.attr('mid'));
+    chooseFoodWrapper.fadeIn();
+  });
+}
+
+var queryFood = function(foodName) {
+  var chooseFoodResultBox = $('.chooseFoodResultBox');
+  var chooseFoodHint = $('.chooseFoodHint');
+  post('/food?action=queryByName', {'name' : foodName}, function(msg) {
+    chooseFoodResultBox.empty();
+    var foods = $.parseJSON(msg);
+    if (foods.length == 0) {
+      chooseFoodHint.text('食物库中未查询到任何食物,请重新查询');
+      return false;
+    }
+    chooseFoodHint.text('查询到 ' + foods.length + ' 个食物, 请选择:');
+    for (var i = 0; i < foods.length; i++) {
+      var food = foods[i]['fields'];
+      food['id'] = foods[i]['pk'];
+      var newFoodBox = $(chooseFoodBox);
+      newFoodBox.attr('fid', food['id']);
+      $(newFoodBox.find('.foodName .foodInfoText')[0]).text(food['name']);
+      $(newFoodBox.find('.foodCalorie .foodInfoText')[0]).text(food['calorie']);
+      $(newFoodBox.find('.foodGI .foodInfoText')[0]).text(food['GI']);
+      newFoodBox.bind('tap', function() {
+        addFoodAction($(this));
+      });
+      chooseFoodResultBox.append(newFoodBox);
+    }
+  });
+}
+
+var addFoodAction = function(chooseFoodBox) {
+  var mid = $('.chooseFoodWrapper').attr('mid');
+  var mealWrapper = $('.mealWrapper[mid="' + mid + '"]');
+  var newFoodWrapper = $(foodBox);
+  var newFoodBox = newFoodWrapper.find('.foodBox');
+  var fid = chooseFoodBox.attr('fid');
+  var fname = chooseFoodBox.find('.foodName').text();
+  var fcalorie = chooseFoodBox.find('.foodCalorie').text();
+  var fgi = chooseFoodBox.find('.foodGI').text();
+  newFoodBox.attr('fid', fid);
+  newFoodBox.find('.foodName').text(fname);
+  newFoodBox.find('.foodCalorie').text(fcalorie);
+  newFoodBox.find('.foodGI').text(fgi);
+  mealWrapper.children('.foodList').append(newFoodWrapper);
+  new IScroll(newFoodWrapper[0], {snap: true, scrollX: true, scrollY: false, mouseWheel: true, eventPassthrough: true});
+  $('.chooseFoodWrapper').fadeOut();
+}
+
+var queryFoodAction = function() {
+  $('.chooseFoodName').bind('input propertychange', function() {
+    queryFood($(this).val());
+  });
+}
 
 var initSwipeDelete = function() {
   $('.swipeWrapper').each(function() {
@@ -23,7 +92,7 @@ var initSwipeDelete = function() {
 }
 
 var changeAmountAction = function() {
-  $('.minusAmountBtn, .addAmountBtn').on('tap', function() {
+  $(document).delegate('.minusAmountBtn, .addAmountBtn', 'tap', function() {
     var target = $($(this).parent().find('.foodAmountVal')[0]);
     var diff = parseInt($(this).attr('diff'));
     target.val(parseInt(target.val()) + diff);
@@ -151,33 +220,6 @@ var updateMealAction = function() {
     var params = {};
     params['foods'] = JSON.stringify(foods);
     params['mid'] = mealWrapper.attr('mid');
-    post('/meal?action=update', params, function(msg) {
-      alert(msg);
-    });
-  });
-}
-
-var addFoodsAction = function() {
-  $('.addFoodsBtn').bind('tap', function() {
-    var table = $($(this).parent().find('table')[0]).children();
-    var trs = table.children('tr');
-    var foods = [];
-    var addFoodsId = $($(this).parent().find('input[name="addFoodsId"]')[0]).val().split(',');
-    for (var i = 0; i < trs.length; i++) {
-      var tr = $(trs[i]);
-      if (tr.children('th').length == 0) {
-        var idBox = $(tr.children('td')[0]);
-        var amountBox = $(tr.find('input[name="amount"]')[0]);
-        foods.push([idBox.text(), amountBox.val()]);
-      }
-    }
-    for (var i = 0; i < addFoodsId.length; i++) {
-      foods.push([addFoodsId[i], '0']);
-    }
-    var mealId = $($(this).parents('.panel')[0]).attr('mid');
-    var params = {};
-    params['foods'] = JSON.stringify(foods);
-    params['mid'] = mealId;
     post('/meal?action=update', params, function(msg) {
       alert(msg);
     });
