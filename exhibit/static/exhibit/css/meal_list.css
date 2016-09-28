@@ -8,6 +8,7 @@
   height: 3em;
   position: relative;
   background-color: #66ffcc;
+  z-index: 1000;
   /*background-color: #0cbfa1;*/
 }
 
@@ -82,6 +83,8 @@
   overflow: hidden;
   background-color: white;
   background-color: #88ffcc;
+  z-index: 1000;
+  position: relative;
 }
 
 .dayWrapper {
@@ -111,10 +114,6 @@
   background-color: #aaffcc;
   font-size: 20px;
   font-weight: bold;
-}
-
-.addMealWrapper {
-  display: none;
 }
 
 .mealWrapper {
@@ -261,7 +260,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 200;
+  z-index: 2000;
   padding: 1em;
   display: none;
 }
@@ -331,4 +330,50 @@
 .chooseFoodHint {
   color: #5b5b5b;
   margin: 1em;
+}
+
+.addMealWrapper {
+  padding: 1em 0.5em;
+  background-color: white;
+}
+
+.addMealRow {
+  width: 100%;
+  position: relative;
+}
+
+.addMealLabel {
+  width: 4em;
+  height: 2.5em;
+  line-height: 2.5em;
+  position: absolute;
+}
+
+.addMealInputBox {
+  width: 100%;
+  padding-left: 5em;
+  padding-right: 3em;
+}
+
+.addMealInput {
+  -webkit-appearance: none; /* 方法2 */
+}
+
+.addMealBtn {
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.mainScrollerWrapper {
+  height: 200px;
+}
+
+.mainScroller {
+  z-index: 100;
 }

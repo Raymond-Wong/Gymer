@@ -47,67 +47,84 @@
   </ul>
 </div>
 
-<div class="addMealWrapper" role="form">
-  <div class="form-group">
-    <label for="food_types">食物类别</label>
-    <input type="text" class="form-control" id="food_types" name="food_types" placeholder="碳水主食, 动物蛋白">
-  </div>
-  <div class="form-group">
-    <label for="name">餐名</label>
-    <input type="text" class="form-control" id="name" name="name" value="未定义">
-  </div>
-  <div class="form-group">
-    <label for="fids">食材列表</label>
-    <input type="text" class="form-control" id="fids" name="fids">
-  </div>
-  <a class="btn btn-default randomAddBtn">随机生成一餐</a>
-  <a class="btn btn-default exactAddBtn">生成一餐</a>
-</div>
-
-{% for meal in meals %}
-<div class="mealWrapper" mid="{{ meal.id }}">
-  <div class="mealInfo">
-    <div class="mealName">
-      {{ meal.name }}
-    </div>
-    <div class="cag">
-      共{{ meal.calorie }}卡，GI值为{{ meal.GI }}
-    </div>
-  </div>
-  <div class="foodList">
-    {% for rs in meal.rs_food_amount_set.all %}
-    <div class="swipeWrapper">
-      <div class="swipeBox">
-        <div class="foodBox left" fid="{{ rs.food.id }}">
-          <div class="thumbImg foodImg"></div>
-          <div class="foodInfo">
-            <div class="foodName">名称：&nbsp;&nbsp;&nbsp;&nbsp;{{ rs.food.name }}</div>
-            <div class="foodCalorie">卡路里：{{ rs.food.calorie }}</div>
-            <div class="foodGI">GI值：&nbsp;&nbsp;&nbsp;&nbsp;{{ rs.food.GI }}</div>
-            <div class="foodAmount">
-              <div class="minusAmountBtn btn left" diff="-5">-</div>
-              <input class="left foodAmountVal" type="number" min="0" value="{{ rs.amount }}" />
-              <div class="addAmountBtn btn right" diff="5">+</div>
-              <div class="clear"></div>
-            </div>
-          </div>
+<div class="mainScrollerWrapper">
+<div class="mainScroller">
+  <div class="addMealWrapper snapElement">
+    <div class="form-group addMealRowBox">
+      <div class="addMealRow">
+        <label for="name" class="addMealLabel">名称</label>
+        <div class="addMealInputBox">
+          <input type="text" class="form-control addMealInput" id="name" name="name" value="未定义">
         </div>
-        <a class="deleteFoodWindow left"></a>
+      </div>
+    </div>
+    <div class="form-group addMealRowBox">
+      <div class="addMealRow">
+        <label for="food_types" class="addMealLabel">类别</label>
+        <div class="addMealInputBox">
+          <input type="text" class="form-control addMealInput" id="food_types" name="food_types" placeholder="输入食物类别,随机生成一餐">
+        </div>
+        <a class="btn btn-default randomAddBtn addMealBtn"><span class="glyphicon glyphicon-refresh"></span></a>
+      </div>
+    </div>
+    <div class="form-group addMealRowBox">
+      <div class="addMealRow">
+        <label for="fids" class="addMealLabel">食材</label>
+        <div class="addMealInputBox">
+          <input placeholder="输入食物名称,生成一餐" type="text" class="form-control addMealInput" id="fids" name="fids">
+        </div>
+        <a class="btn btn-default exactAddBtn addMealBtn"><span class="glyphicon glyphicon-plus"></span></a>
+      </div>
+    </div>
+  </div>
+  <div class="mealsWrapper snapElement">
+    {% for meal in meals %}
+    <div class="mealWrapper" mid="{{ meal.id }}">
+      <div class="mealInfo">
+        <div class="mealName">
+          {{ meal.name }}
+        </div>
+        <div class="cag">
+          共{{ meal.calorie }}卡，GI值为{{ meal.GI }}
+        </div>
+      </div>
+      <div class="foodList">
+        {% for rs in meal.rs_food_amount_set.all %}
+        <div class="swipeWrapper">
+          <div class="swipeBox">
+            <div class="foodBox left" fid="{{ rs.food.id }}">
+              <div class="thumbImg foodImg"></div>
+              <div class="foodInfo">
+                <div class="foodName">名称：&nbsp;&nbsp;&nbsp;&nbsp;{{ rs.food.name }}</div>
+                <div class="foodCalorie">卡路里：{{ rs.food.calorie }}</div>
+                <div class="foodGI">GI值：&nbsp;&nbsp;&nbsp;&nbsp;{{ rs.food.GI }}</div>
+                <div class="foodAmount">
+                  <div class="minusAmountBtn btn left" diff="-5">-</div>
+                  <input class="left foodAmountVal" type="number" min="0" value="{{ rs.amount }}" />
+                  <div class="addAmountBtn btn right" diff="5">+</div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </div>
+            <a class="deleteFoodWindow left"></a>
+            <div class="clear"></div>
+          </div>
+          <div class="deleteFoodBtn">删除</div>
+        </div>
+        {% endfor %}
+
+      </div>
+      <div class="btnsBox">
+        <button class="deleteMealBtn btn btn-sm btn-default">删除</button>
+        <button class="addFoodBtn btn btn-sm btn-default">添加</button>
+        <button class="updateMealBtn btn btn-sm btn-default">保存</button>
         <div class="clear"></div>
       </div>
-      <div class="deleteFoodBtn">删除</div>
     </div>
     {% endfor %}
-
-  </div>
-  <div class="btnsBox">
-    <button class="deleteMealBtn btn btn-sm btn-default">删除</button>
-    <button class="addFoodBtn btn btn-sm btn-default">添加</button>
-    <button class="updateMealBtn btn btn-sm btn-default">保存</button>
-    <div class="clear"></div>
   </div>
 </div>
-{% endfor %}
+</div>
 {% endblock %}
 
 {% block script %}

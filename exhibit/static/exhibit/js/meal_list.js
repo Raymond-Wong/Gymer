@@ -2,6 +2,7 @@ $(document).ready(function() {
   initMonthChooser();
   initDayChooser();
   initChangeDateAction();
+  initMainScroller();
   randomAddMealAction();
   exactAddMealAction();
   updateMealAction();
@@ -13,6 +14,25 @@ $(document).ready(function() {
   cancelChooseFoodAction();
   chooseFoodAction();
 });
+
+var initMainScroller = function() {
+  var wrapper = $('.mainScrollerWrapper');
+  var scroller = $('.mainScroller');
+  var addMealWrapper = $('.addMealWrapper');
+  var startY = addMealWrapper.height() + 2 * parseFloat(addMealWrapper.css('padding'));
+  var totalHeight = $(window).height() - 14 * 3 - $(window).width() * 13 / 100;
+  wrapper.css('height', totalHeight + 'px');
+  scroller.css('min-height', totalHeight + startY + 'px');
+  // wrapper.css('height', startY + 'px');
+  var iscroll = new IScroll(wrapper[0], {snap: false, startY: -1 * startY, mouseWheel: true, eventPassthrough: false})
+  // iscroll.on('scrollEnd', function() {
+  //   if (Math.abs(this.y) > (startY / 3) && Math.abs(this.y) < startY) {
+  //     iscroll.scrollTo(0, -1 * startY, 500);
+  //   } else if (Math.abs(this.y) < (startY / 3) && this.y <= 0) {
+  //     iscroll.scrollTo(0, 0, 500);
+  //   }
+  // });
+}
 
 var cancelChooseFoodAction = function() {
   $('.chooseFoodCancelBtn').on('tap', function() {
