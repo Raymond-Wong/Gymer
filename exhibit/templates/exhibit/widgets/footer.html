@@ -1,0 +1,14 @@
+<ul class="footer">
+  <li class="footer_item left{% ifequal active_page 'food_list_all' %} active{% endifequal %}">
+    <a data-ajax='false' href="/food?action=list&type=all">超市</a>
+  </li>
+  <li class="footer_item left{% ifequal active_page 'food_list_user' %} active{% endifequal %}">
+    <a data-ajax='false' href="/food?action=list&type=self">冰箱</a>
+  </li>
+  <li class="footer_item left{% ifequal active_page 'meal_list' %} active{% endifequal %}">
+    <a data-ajax='false' href="/meal?action=list">记录</a>
+  </li>
+  <li class="footer_item left{% ifequal active_page 'user' %} active{% endifequal %}">
+    <a data-ajax='false' href="/user?action=set">身体</a>
+  </li>
+</ul>

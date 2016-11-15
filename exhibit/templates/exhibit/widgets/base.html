@@ -7,13 +7,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <link type="text/css" rel="stylesheet" href="/static/common/css/bootstrap.min.css" />
   <link type="text/css" rel="stylesheet" href="/static/exhibit/css/base.css">
+  <link type="text/css" rel="stylesheet" href="/static/exhibit/css/loading.css">
+  <link type="text/css" rel="stylesheet" href="/static/exhibit/css/footer.css">
   {% block style %}{% endblock %}
 </head>
 <body>
+  {% include "exhibit/widgets/loading.html" %}
   <div class="pageWrapper">
     {% block page %}
     {% endblock %}
   </div>
+  {% include "exhibit/widgets/footer.html" %}
 </body>
 <script type="text/javascript" src="/static/common/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/static/common/js/jquery.mobile-1.4.5.min.js"></script>
@@ -26,4 +30,5 @@ $.ajaxSetup({
 });
 </script>
 {% block script %}{% endblock %}
+<script type="text/javascript" src="/static/exhibit/js/loading.js"></script>
 </html>

@@ -1,38 +1,50 @@
 {% extends 'exhibit/widgets/base.html' %}
 
-{% block style %}{% endblock %}
+{% block style %}
+<link type="text/css" rel="stylesheet" href="/static/exhibit/css/food_list_all.css">
+{% endblock %}
 
 {% block page %}
-<h1>Food user</h1>
-<div class="table-responsive">
-  <table class="table">
-    <tr>
-      <th>#</th>
-      <th>类别</th>
-      <th>名称</th>
-      <th>卡路里</th>
-      <th>GI值</th>
-      <th>偏好程度</th>
-      <th>操作</th>
-    </tr>
-    {% for food in foods %}
-    <tr>
-      <td>{{ food.id }}</td>
-      <td>{{ food.category }}</td>
-      <td>{{ food.name }}</td>
-      <td>{{ food.calorie }}</td>
-      <td>{{ food.GI }}</td>
-      <td>{{ food.preference }}</td>
-      <td>
-        <a class="removeFoodBtn{% if food.belong_to %}{% else %} hide{% endif %}">移除</a>
-        <a class="addFoodBtn{% if food.belong_to %} hide{% endif %}">添加</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+<div class="optionBox">
+  <div class="typeSelectBox left">
+    <select data-role="none" class="typeSelect">
+      {% for category in categorys %}
+      <option>{{ category }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="searchBox left">
+    <input type="text" id="queryName" placeholder="请输入食材名称" />
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="foodsWrapper">
+  {% for food in foods %}
+  <div class="swipeWrapper">
+    <div class="swipeBox">
+      <div class="foodBox left" fid="{{ food.id }}">
+        <div class="thumbImg foodImg"></div>
+        <div class="foodInfo">
+          <div class="foodCategory" value="{{ food.category }}">类别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ food.category }}</div>
+          <div class="foodName" value="{{ food.name }}">名称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ food.name }}</div>
+          <div class="foodCalorie">卡路里:&nbsp;&nbsp;{{ food.calorie }}</div>
+          <div class="foodGI">GI值:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ food.GI }}</div>
+        </div>
+      </div>
+      <a class="deleteFoodWindow left {% if food.belong_to %}removeFoodBtn{% else %}addFoodBtn{% endif %}"></a>
+      <div class="clear"></div>
+    </div>
+    {% if food.belong_to %}
+    <div class="foodOptionBtn" type="remove">移除</div>
+    {% else %}
+    <div class="foodOptionBtn" type="add">添加</div>
+    {% endif %}
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" src="/static/plugin/iscroll/iscroll.js"></script>
 <script type="text/javascript" src="/static/exhibit/js/food_list_user.js"></script>
 {% endblock %}

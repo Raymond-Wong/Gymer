@@ -23,7 +23,7 @@ def list(request):
   month = request.GET.get('month', str(now.month))
   day = request.GET.get('day', str(now.day))
   meals = Meal.objects.filter(user=user).filter(date__year=year).filter(date__month=month).filter(date__day=day)
-  return render(request, 'exhibit/meal_list.html', {'meals' : meals, 'year' : year, 'month' : month, 'day' : day})
+  return render(request, 'exhibit/meal_list.html', {'active_page' : 'meal_list', 'meals' : meals, 'year' : year, 'month' : month, 'day' : day})
 
 def add(request):
   add_type = request.GET.get('type', 'random')

@@ -1,0 +1,37 @@
+.footer {
+  list-style: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 15vw;
+  line-height: 15vw;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  z-index: 100;
+  background-color: #88ffcc;
+}
+
+.footer_item {
+  width: 25vw;
+  text-align: center;
+  border-right: 1px solid #aaffcc;
+  border-top: 1px solid #aaffcc;
+}
+
+.footer_item:last-child {
+  border-right: 0;
+}
+
+.footer_item a {
+  color: white;
+}
+
+.footer_item.active {
+  background-color: #aaffcc;
+}
+
+.footer_item.active a {
+  font-size: 20px;
+  font-weight: bold;
+}

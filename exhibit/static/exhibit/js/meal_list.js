@@ -15,23 +15,24 @@ $(document).ready(function() {
   chooseFoodAction();
 });
 
+var TOPPING = false;
+var MAIN_SCROLL = null;
 var initMainScroller = function() {
   var wrapper = $('.mainScrollerWrapper');
   var scroller = $('.mainScroller');
   var addMealWrapper = $('.addMealWrapper');
   var startY = addMealWrapper.height() + 2 * parseFloat(addMealWrapper.css('padding'));
-  var totalHeight = $(window).height() - 14 * 3 - $(window).width() * 13 / 100;
+  var totalHeight = $('.pageWrapper').height() - 14 * 3 - $(window).width() * 13 / 100;
   wrapper.css('height', totalHeight + 'px');
   scroller.css('min-height', totalHeight + startY + 'px');
-  // wrapper.css('height', startY + 'px');
-  var iscroll = new IScroll(wrapper[0], {snap: false, startY: -1 * startY, mouseWheel: true, eventPassthrough: false})
-  // iscroll.on('scrollEnd', function() {
-  //   if (Math.abs(this.y) > (startY / 3) && Math.abs(this.y) < startY) {
-  //     iscroll.scrollTo(0, -1 * startY, 500);
-  //   } else if (Math.abs(this.y) < (startY / 3) && this.y <= 0) {
-  //     iscroll.scrollTo(0, 0, 500);
-  //   }
-  // });
+  MAIN_SCROLL = new IScroll(wrapper[0], {snap: false, startY: -1 * startY, mouseWheel: true, eventPassthrough: false})
+  MAIN_SCROLL.on('scrollEnd', function() {
+    if (!TOPPING && Math.abs(this.y) > (startY / 3) && Math.abs(this.y) < startY) {
+      MAIN_SCROLL.scrollTo(0, -1 * startY, 500);
+    } else if (!TOPPING && Math.abs(this.y) < (startY / 3) && this.y <= 0) {
+      MAIN_SCROLL.scrollTo(0, 0, 500);
+    }
+  });
 }
 
 var cancelChooseFoodAction = function() {
@@ -47,6 +48,7 @@ var chooseFoodAction = function() {
     queryFood('');
     chooseFoodWrapper.attr('mid', mealWrapper.attr('mid'));
     chooseFoodWrapper.fadeIn();
+    return false;
   });
 }
 
@@ -93,6 +95,7 @@ var addFoodAction = function(chooseFoodBox) {
   mealWrapper.children('.foodList').append(newFoodWrapper);
   new IScroll(newFoodWrapper[0], {snap: true, scrollX: true, scrollY: false, mouseWheel: true, eventPassthrough: true});
   $('.chooseFoodWrapper').fadeOut();
+  MAIN_SCROLL.refresh();
 }
 
 var queryFoodAction = function() {
@@ -221,7 +224,8 @@ var randomAddMealAction = function() {
     params['food_types'] = JSON.stringify($('input[name="food_types"]').val().split(','));
     params['name'] = $('input[name="name"]').val();
     post('/meal?action=add&type=random', params, function(msg) {
-      alert(msg);
+      // alert(msg);
+      window.location.href = window.location.href;
     });
   });
 }
@@ -247,7 +251,7 @@ var updateMealAction = function() {
 }
 
 var removeFoodAction = function() {
-  $('.deleteFoodWindow').on('tap', function() {
+  $(document).delegate('.deleteFoodWindow', 'tap', function() {
     var row = $($(this).parents('.swipeWrapper')[0]);
     row.remove();
     return false;

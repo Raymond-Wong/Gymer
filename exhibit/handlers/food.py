@@ -20,20 +20,26 @@ def list(request):
 def list_all(request):
   user = User.objects.get(id=request.session['uid'])
   foods = Food.objects.all()
+  category = []
   for food in foods:
     if user in food_to_users(food):
       food.belong_to = True
+      if not food.category in category:
+        category.append(food.category)
     else:
       food.belong_to = False
-  return render(request, 'exhibit/food_list_all.html', {'foods' : foods})
+  return render(request, 'exhibit/food_list_all.html', {'foods' : foods, 'active_page' : 'food_list_all', 'categorys' : category})
 
 def list_user(request):
   user = User.objects.get(id=request.session['uid'])
   foods = user_to_foods(user)
+  category = []
   for food in foods:
     food.preference = RS_Preference.objects.filter(food=food, market=user.market)[0].preference
     food.belong_to = True
-  return render(request, 'exhibit/food_list_user.html', {'foods' : foods})
+    if not food.category in category:
+      category.append(food.category)
+  return render(request, 'exhibit/food_list_user.html', {'categorys' : category, 'foods' : foods, 'active_page' : 'food_list_user'})
 
 def add(request):
   user = User.objects.get(id=request.session['uid'])

@@ -37,3 +37,13 @@ Date.prototype.Format = function(fmt) { //author: meizz
   fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
   return fmt;
 }
+
+String.prototype.startWith=function(s){
+  if(s==null||this.length==0||s.length>this.length)
+    return false;
+  if(this.substr(0,s.length)==s)
+    return true;
+  else
+    return false;
+  return true;
+ }

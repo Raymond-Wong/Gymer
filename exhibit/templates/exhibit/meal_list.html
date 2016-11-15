@@ -67,7 +67,7 @@
         <a class="btn btn-default randomAddBtn addMealBtn"><span class="glyphicon glyphicon-refresh"></span></a>
       </div>
     </div>
-    <div class="form-group addMealRowBox">
+<!--     <div class="form-group addMealRowBox">
       <div class="addMealRow">
         <label for="fids" class="addMealLabel">食材</label>
         <div class="addMealInputBox">
@@ -75,8 +75,9 @@
         </div>
         <a class="btn btn-default exactAddBtn addMealBtn"><span class="glyphicon glyphicon-plus"></span></a>
       </div>
-    </div>
+    </div> -->
   </div>
+  {% if meals %}
   <div class="mealsWrapper snapElement">
     {% for meal in meals %}
     <div class="mealWrapper" mid="{{ meal.id }}">
@@ -123,6 +124,9 @@
     </div>
     {% endfor %}
   </div>
+  {% else %}
+  <p class="noMealsHint">当天无饮食记录,下拉页面以添加</p>
+  {% endif %}
 </div>
 </div>
 {% endblock %}

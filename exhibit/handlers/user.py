@@ -72,7 +72,7 @@ def get(request):
 def set(request):
   user = User.objects.get(id=request.session['uid'])
   if request.method == 'GET':
-    return render(request, 'exhibit/user_set.html', {'user' : user})
+    return render(request, 'exhibit/user_set.html', {'user' : user, 'active_page' : 'user'})
   args = [('height', True, int, 160), ('weight', True, int, 40), ('gender', True, int, 0), ('age', True, int, 18), ('exercise_level', True, int, 0)]
   args = get_post_args(request.POST, args)
   if not args[0]:

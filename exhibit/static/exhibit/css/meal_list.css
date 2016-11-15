@@ -337,6 +337,10 @@
   background-color: white;
 }
 
+.addMealWrapper .form-group:last-child {
+  margin-bottom: 0;
+}
+
 .addMealRow {
   width: 100%;
   position: relative;
@@ -376,4 +380,10 @@
 
 .mainScroller {
   z-index: 100;
+}
+
+.noMealsHint {
+  width: 100%;
+  padding: 1em;
+  color: #b2b2b2;
 }

@@ -1,63 +1,80 @@
 {% extends 'exhibit/widgets/base.html' %}
 
-{% block style %}{% endblock %}
+{% block style %}
+<link type="text/css" rel="stylesheet" href="/static/exhibit/css/user_set.css">
+{% endblock %}
 
 {% block page %}
-<h1>User info</h1>
-<div class="form-horizontal" role="form">
-  <div class="form-group">
-    <label for="nickname" class="col-sm-2 control-label">昵称</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="nickname" name="nickname" value="{{ user.nickname }}">
-    </div>
+<div class="line">
+  <h4 class="head">用户档案</h4>
+</div>
+<div class="line">
+  <div class="key left">昵称</div>
+  <div class="content left">
+    <input type="text" readonly id="nickname" name="nickname" value="{{ user.nickname }}">
   </div>
-  <div class="form-group">
-    <label for="height" class="col-sm-2 control-label">身高</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="height" name="height" value="{{ user.height }}">
-    </div>
+  <div class="clear"></div>
+</div>
+<div class="line">
+  <div class="key left">身高</div>
+  <div class="content left">
+    <input type="number" placeholder="单位为厘米" id="height" name="height" value="{{ user.height }}">
   </div>
-  <div class="form-group">
-    <label for="weight" class="col-sm-2 control-label">体重</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="weight" name="weight" value="{{ user.weight }}">
-    </div>
+  <div class="clear"></div>
+</div>
+<div class="line">
+  <div class="key left">体重</div>
+  <div class="content left">
+    <input type="number" id="weight" placeholder="单位为斤" name="weight" value="{{ user.weight }}">
   </div>
-  <div class="form-group">
-    <label for="age" class="col-sm-2 control-label">年龄</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="age" name="age" value="{{ user.age }}">
-    </div>
+  <div class="clear"></div>
+</div>
+<div class="line">
+  <div class="key left">年龄</div>
+  <div class="content left">
+    <input type="number" id="age" name="age" value="{{ user.age }}">
   </div>
-  <div class="form-group">
-    <label for="gender" class="col-sm-2 control-label">性别</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="gender" name="gender" value="{{ user.gender }}">
-    </div>
+  <div class="clear"></div>
+</div>
+<div class="line">
+  <div class="key left">性别</div>
+  <div class="content left">
+    <select data-role="none" id="gender">
+      <option value="0"{% ifequal user.gender 0 %} selected{% endifequal%}>女</option>
+      <option value="1"{% ifequal user.gender 1 %} selected{% endifequal%}>男</option>
+    </select>
   </div>
-  <div class="form-group">
-    <label for="exercise_level" class="col-sm-2 control-label">运动级别</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="exercise_level" name="exercise_level" value="{{ user.exercise_level }}">
-    </div>
+  <div class="clear"></div>
+</div>
+<div class="line">
+  <div class="key left">运动级别</div>
+  <div class="content left">
+    <select data-role="none" id="exercise_level">
+      <option value="0"{% ifequal user.exercise_level 0 %} selected{% endifequal%}>完全没有运动</option>
+      <option value="1"{% ifequal user.exercise_level 1 %} selected{% endifequal%}>每周大约少量运动1～3次</option>
+      <option value="2"{% ifequal user.exercise_level 2 %} selected{% endifequal%}>每周大约运动3～6次</option>
+      <option value="3"{% ifequal user.exercise_level 3 %} selected{% endifequal%}>每周运动6～7次</option>
+      <option value="4"{% ifequal user.exercise_level 4 %} selected{% endifequal%}>工作或生活作息需要大量劳动</option>
+    </select>
   </div>
-  <div class="form-group">
-    <label for="BMI" class="col-sm-2 control-label">BMI</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="BMI" name="BMI" value="{{ user.BMI }}">
-    </div>
+  <div class="clear"></div>
+</div>
+<div class="line">
+  <div class="key left">BMI</div>
+  <div class="content left">
+    <input type="text" readonly id="BMI" name="BMI" placeholder="身体质量指数" value="{{ user.BMI }}">
   </div>
-  <div class="form-group">
-    <label for="BMR" class="col-sm-2 control-label">BMR</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control" id="BMR" name="BMR" value="{{ user.BMR }}">
-    </div>
+  <div class="clear"></div>
+</div>
+<div class="line">
+  <div class="key left">BMR</div>
+  <div class="content left">
+    <input type="text" readonly id="BMR" name="BMR" placeholder="基础代谢率" value="{{ user.BMR }}">
   </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">保存</button>
-    </div>
-  </div>
+  <div class="clear"></div>
+</div>
+<div class="line">
+  <button type="submit" class="btn btn-default">保存</button>
 </div>
 {% endblock %}
 

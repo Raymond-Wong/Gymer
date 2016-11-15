@@ -1,0 +1,109 @@
+.optionBox {
+  width: 100%;
+  background-color: #66ffcc;
+  padding: 0.5em;
+}
+
+.typeSelectBox {
+  width: 30%;
+  height: 3em;
+  line-height: 3em;
+  border-radius: 0;
+}
+
+.searchBox {
+  width: 70%;
+  height: 3em;
+  border-radius: 0;
+}
+
+.typeSelectBox select {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaffcc;
+  outline: none;
+  padding-left: 1em;
+  background-color: white;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.searchBox input {
+  width: 100%;
+  height: 3em;
+  padding: 0 0.5em;
+  border: 1px solid #aaffcc;
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+
+.foodBox {
+  width: 100vw;
+  position: relative;
+  border-bottom: 1px solid #eee;
+  padding: 0.5em;
+  height: 7.5em;
+  background-color: white;
+}
+
+.foodBox .foodImg {
+  height: 6.5em;
+  width: 6.5em;
+  position: absolute;
+  left: 0.5em;
+}
+
+.foodBox .foodInfo {
+  width: 100%;
+  height: 100%;
+  padding-left: 7.5em;
+}
+
+.foodCategory, .foodName, .foodGi, .foodCalorie {
+  height: 1.5em;
+  line-height: 1.5em;
+}
+
+.foodCategory {
+  margin-top: 4px;
+}
+
+.swipeWrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 7.5em;
+}
+
+.swipeBox {
+  position: absolute;
+  left: 0;
+  width: 120vw;
+  z-index: 100;
+}
+
+.deleteFoodWindow {
+  width: 20vw;
+  height: 104px;
+  background-color: transparent;
+  display: block;
+}
+
+.foodOptionBtn {
+  width: 20vw;
+  height: 104px;
+  line-height: 104px;
+  background-color: red;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 16px;
+  text-align: center;
+}
+
+.foodOptionBtn[type="add"] {
+  background-color: green;
+}

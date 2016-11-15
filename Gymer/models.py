@@ -28,7 +28,7 @@ class User(models.Model):
   password = models.CharField(max_length=50)
   nickname = models.CharField(max_length=20)
   height = models.PositiveIntegerField(default=160)
-  weight = models.PositiveIntegerField(default=40)
+  weight = models.PositiveIntegerField(default=80)
   age = models.PositiveIntegerField(default=18)
   gender = models.PositiveIntegerField(choices=GENDER, default=0)
   exercise_level = models.PositiveIntegerField(choices=EXERCISE_LEVEL, default=0)

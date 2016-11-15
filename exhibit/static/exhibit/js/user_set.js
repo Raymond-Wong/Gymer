@@ -8,10 +8,11 @@ var doSaveAction = function() {
     params['height'] = $('input[name="height"]').val();
     params['weight'] = $('input[name="weight"]').val();
     params['age'] = $('input[name="age"]').val();
-    params['gender'] = $('input[name="gender"]').val();
-    params['exercise_level'] = $('input[name="exercise_level"]').val();
+    params['gender'] = $('#gender').val();
+    params['exercise_level'] = $('#exercise_level').val();
     post('/user?action=set', params, function(msg) {
       alert(msg);
+      window.location.href = window.location.href;
     });
   });
   
